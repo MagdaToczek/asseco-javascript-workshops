@@ -63,6 +63,17 @@ function sumUpWithDeclaredReturnType(leftNumber: number, rightNumber: number): n
     return leftNumber + rightNumber;
 }
 
-// napisz interfejs ITrack ze struktura odpowiedniego typu (title, duration)
+// 1 - napisz interfejs ITrack ze struktura odpowiedniego typu (title, duration)
 // a nastepnie funckje przyjmujaca tablice piosenek (Track[]), 
 // zwracajaca sume czasu trwania wszystkich piosenek z przekazanej tablicy
+
+
+// 2 - przyjrzyj sie plikowi company.ts - modul eksportujacy interfejs i klase, mozemy uzyc ponizej
+import { IEmployee, Company } from './company'
+const company = new Company();
+let employee: IEmployee = { name: "John", surname: "Wick", salary: 2500 };
+company.hireEmployee(employee);
+
+// 3 - napisz wlasny modul w pliku album.ts, z klasą Album i odpowiednimi interfejsami.
+// klasa powinna umozliwiac przechowywanie listy piosenek (Track), dodawanie trackow,
+// oraz posiadac metode ktora zwraca wszystkie tracki (tablica) oraz metode wypisujaca czas trwania albumu
