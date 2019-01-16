@@ -68,6 +68,33 @@ function sumUpWithDeclaredReturnType(leftNumber: number, rightNumber: number): n
 // zwracajaca sume czasu trwania wszystkich piosenek z przekazanej tablicy
 
 
+// [KLASY] mamy klasyczny konstruktor, slowo kluczowe new oraz statyczne metody a takze metody instancji
+class Movie {
+    title: string;
+    year: number;
+    genre: string;
+    private somePrivateVar: string = "privateVarValue";
+    constructor(title: string, year: number, genre: string) {
+        this.title = title;
+        this.year = year;
+        this.genre = genre;
+    }
+
+    static getGenres() {
+        return ['Horror', 'Drama', 'Action']
+    }
+
+    getTitle() {
+        return this.title;
+    }
+}
+
+Movie.getGenres();
+Movie.getTitle(); // error, that's instance method
+let movie = new Movie("I, Robot", 2009, "Sci-Fi");
+movie.getTitle(); movie.title;
+movie.somePrivateVar; // encapsulation
+
 // 2 - przyjrzyj sie plikowi company.ts - modul eksportujacy interfejs i klase, mozemy uzyc ponizej
 import { IEmployee, Company } from './company'
 const company = new Company();
@@ -77,3 +104,43 @@ company.hireEmployee(employee);
 // 3 - napisz wlasny modul w pliku album.ts, z klasą Album i odpowiednimi interfejsami.
 // klasa powinna umozliwiac przechowywanie listy piosenek (Track), dodawanie trackow,
 // oraz posiadac metode ktora zwraca wszystkie tracki (tablica) oraz metode wypisujaca czas trwania albumu
+
+
+// [Tablice]
+// dzialaja podobnie jak w JS, nalezy pamietac zeby podczas uzywania w klasach podac typ tablic - domyslnie typem jest never!
+
+class Product {
+    name: string;
+    // features = []; // array of never's :(
+    features: string[] = new Array();
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+// [Tuple]
+// tablice o podanej dlugosci i strukturze
+let tupleVar: [string, number, boolean];
+tupleVar = ["string", 14, false];
+let numberVar: number;
+let boolVar: boolean;
+[stringVar, numberVar, boolVar] = tupleVar;
+
+// [Types]
+// deklarowanie nowych typow, nie tylko przez interfejs
+type RgbColor = [number, number, number]; // mozna wyeksportowac export
+
+// [Enums]
+enum Color {
+    Red,
+    Blue,
+    Yellow
+}
+
+let nameOfRed = Color[Color.Red]; // 'Red'
+
+// 4 napisz enum Genre (gatunki filmowe) oraz zmien klase Movie z tego pliku tak aby wykorzystywala nowy enum
+
+// 5 napisz klase PowerballMachine, ktora pozwala na losowanie i sprawdzanie wyniku losowania powerball (wysokosc nagrody dla podanych numerow)
+// zasady powerball: https://www.powerball.com/games/powerball
+// korzystaj z dobrodziejstw typow oraz innych udogodnien TS jak klasa, prywatne zmienne, tuple itd.
