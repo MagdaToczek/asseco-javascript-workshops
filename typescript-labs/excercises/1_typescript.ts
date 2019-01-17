@@ -144,3 +144,74 @@ let nameOfRed = Color[Color.Red]; // 'Red'
 // 5 napisz klase PowerballMachine, ktora pozwala na losowanie i sprawdzanie wyniku losowania powerball (wysokosc nagrody dla podanych numerow)
 // zasady powerball: https://www.powerball.com/games/powerball
 // korzystaj z dobrodziejstw typow oraz innych udogodnien TS jak klasa, prywatne zmienne, tuple itd.
+
+
+// [Spread/Rest operator]
+// rest
+const { x, ...rest } = { x: 1, y: 2, z: 3, m: 4, n: 5 };
+// spread
+const simplePerson = { name: "George", surname: "Smith" };
+const personWithAga = { ...simplePerson, age: 30 };
+
+// [Generics]
+function cloneNTimes<T>(argToClone: T, n: number): T[] {
+    let result: T[] = new Array();
+    for (let index = 0; index < n; index++) {
+        result.push(argToClone);
+    }
+
+    return result;
+}
+
+const clonedNumbers = cloneNTimes<number>(11, 5);
+const clonedTuples = cloneNTimes<[number, string]>([1, "description"], 5); // we can use interfaces, classes passed in T
+
+// [Function overloading] (przeciazanie funckcji)
+// nie dziala tak super...
+function push(singleParam: number): number[];
+function push(arrayOfParam: number[]): number[];
+
+function push(inputArg: number | number[]) {
+    let result: number[] = new Array();
+
+    if (typeof inputArg === 'number') {
+        result.push(inputArg);
+        return result;
+    } else {
+        for (let singleNumber of inputArg) {
+            result.push(singleNumber);
+        }
+        return result;
+    }
+}
+
+const finalResult = push(1);
+const finalResult2 = push([1, 2, 3]);
+
+// 6 - opierajac sie na generycznosci oraz przeciazaniu funkcji, napisz wlasna klase do kolejkowania (kolejka FIFO), ktora implementuje interfejs:
+
+interface IQueue<T> {
+    length(): number;
+    enqueue(singleItem: T): void;
+    enqueue(arrayOfItems: T[]): void;
+    dequeue(): T | undefined;
+}
+
+// sprawdz dzialanie napisanej klasy - sprobuj zakolejkowac 1 item danego typu oraz tablice elementow danego typu
+// metoda dequeue powinna zwracac itemy, dopoki sa dostepne. W przeciwnym wypadku powinna zwrocic undefined
+
+// [Generators] // bardzo potezne narzedzie :)
+function* generateNextNumber() {
+    let initialValue = 0;
+    while (true) {
+        yield (initialValue++)
+    }
+}
+
+const myGenerator = generateNextNumber(); // funckja nie jest wykonywana !
+const newNumber = myGenerator.next().value; // zwrocenie wartosci // yield - nastepnie wykonywanie jest wstrzymywane az do ponownego wywolania next()
+
+// 7 - napisz generator liczby fibbonaci oraz przetestuj jego dzialanie
+
+// wiecej zadan np na stronie
+// https://training-course-material.com/training/Typescript
